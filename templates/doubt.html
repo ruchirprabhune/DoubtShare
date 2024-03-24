@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "bootstrap5/form.html" import render_form %}
+{% block content %}
+
+
+       <div class="post-heading">
+          <h1>{{ doubt.question }}</h1>
+
+          <span class="meta"
+            >Posted by
+            <a href="#">{{ doubt.author.name }}</a>
+            on {{ doubt.date }}
+          </span>
+        </div>
+{% if doubt.img_path %}
+<img src="{{doubt.img_path}}" height="300px" width ="400px" >
+{% endif %}
+<article>{{ doubt.description|safe }}</article>
+<a href="{{url_for('post_answer',doubt_id = doubt.id ) }}">Post Answer</a>
+
+        {{ render_form(dcform, novalidate=True, button_map={"submit": "primary"}) }}
+<div class="comment">
+
+          <ul class="commentList">
+            {% for comment in doubt.doubtcomments: %}
+            <li>
+              <div class="commenterImage">
+                <img
+                  src="{{ comment.comment_author.email | gravatar }}"
+                />
+              </div>
+              <div class="commentText">
+                {{comment.text|safe}}
+                <span class="sub-text">{{comment.comment_author.name}}</span>
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+        </div>
+<div class="answers">
+
+          <ul class="answersList">
+            {% for answer in doubt.answers: %}
+            <li>
+              <div class="commenterImage">
+                <img
+                  src="{{ answer.answer_author.email | gravatar }}"
+                />
+              </div>
+              <div class="commentText" style=" border:3px solid gray">
+                <span class="sub-text">{{answer.answer_author.name}}</span>
+                  {% if answer.img_path %}
+                  <img src="{{answer.img_path}}" height="300px" width ="500px" >
+                  {% endif %}
+                {{answer.text|safe}}
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+        </div>
+      </div>
+
+
+
+{% endblock %}

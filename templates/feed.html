@@ -1,0 +1,22 @@
+
+{% extends "base.html" %} {% block content %}
+<div>
+      {% for doubt in all_doubts %}
+      <div class="post-preview">
+        <a href="{{url_for('show_doubt' , doubt_id = doubt.id)}}">
+          <h2 class="post-title">{{ doubt.question }}</h2>
+        </a>
+        <p class="post-meta">
+            subject : {{doubt.subject}} <br>
+          Posted by
+          <a href="#">{{doubt.author.name}}</a>
+          on {{doubt.date}}
+
+
+        </p>
+      </div>
+      <!-- Divider-->
+      <hr class="my-4" />
+      {% endfor %}
+    </div>
+{% endblock %}

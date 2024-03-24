@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="box">
-  <h1>Flask Authentication</h1>
+  <h1>DoubtSolve</h1>
       {% if not logged_in: %}
 
   <a href="{{ url_for('login') }}" class="btn btn-primary btn-block btn-large"
@@ -13,6 +13,7 @@
     >Register</a>
       {% else %}
       <p> You are logged in as {{current_user.name}}</p>
+  <a href="{{url_for('post_doubt')}}"> ADD POST</a>
   {% endif %}
 </div>
 
